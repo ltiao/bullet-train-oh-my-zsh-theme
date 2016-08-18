@@ -22,9 +22,9 @@ if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
     status
     custom
     context
+    dir
     docker
     kube
-    dir
     perl
     ruby
     virtualenv
@@ -95,6 +95,9 @@ fi
 if [ ! -n "${BULLETTRAIN_DOCKER_FG+1}" ]; then
   BULLETTRAIN_DOCKER_FG=white
 fi
+if [ ! -n "${BULLETTRAIN_DOCKER_PREFIX+1}" ]; then
+  BULLETTRAIN_DOCKER_PREFIX=🐳
+fi
 
 # KUBERNETES
 if [ ! -n "${BULLETTRAIN_KUBE_SHOW+1}" ]; then
@@ -105,6 +108,9 @@ if [ ! -n "${BULLETTRAIN_KUBE_BG+1}" ]; then
 fi
 if [ ! -n "${BULLETTRAIN_KUBE_FG+1}" ]; then
   BULLETTRAIN_KUBE_FG=white
+fi
+if [ ! -n "${BULLETTRAIN_KUBE_PREFIX+1}" ]; then
+  BULLETTRAIN_KUBE_PREFIX=☸
 fi
 
 # VIRTUALENV
@@ -408,7 +414,7 @@ prompt_kube() {
     return
   fi
 
-  prompt_segment $BULLETTRAIN_KUBE_BG $BULLETTRAIN_KUBE_FG "$(kubectl config current-context)"
+  prompt_segment $BULLETTRAIN_KUBE_BG $BULLETTRAIN_KUBE_FG $BULLETTRAIN_KUBE_PREFIX" $(kubectl config current-context)"
 }
 
 prompt_docker() {
@@ -416,7 +422,7 @@ prompt_docker() {
     return
   fi
 
-  prompt_segment $BULLETTRAIN_DOCKER_BG $BULLETTRAIN_DOCKER_FG "$(docker info | awk '/Name/{printf "%s",$2}')"
+  prompt_segment $BULLETTRAIN_DOCKER_BG $BULLETTRAIN_DOCKER_FG $BULLETTRAIN_DOCKER_PREFIX" $(docker info | awk '/Name/{printf "%s",$2}')"
 }
 
 # Git

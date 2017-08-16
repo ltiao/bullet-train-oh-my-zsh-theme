@@ -23,8 +23,6 @@ if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
     custom
     context
     dir
-    docker
-    kube
     perl
     ruby
     virtualenv
@@ -83,34 +81,6 @@ if [ ! -n "${BULLETTRAIN_CUSTOM_BG+1}" ]; then
 fi
 if [ ! -n "${BULLETTRAIN_CUSTOM_FG+1}" ]; then
   BULLETTRAIN_CUSTOM_FG=default
-fi
-
-# DOCKER
-if [ ! -n "${BULLETTRAIN_DOCKER_SHOW+1}" ]; then
-  BULLETTRAIN_DOCKER_SHOW=true
-fi
-if [ ! -n "${BULLETTRAIN_DOCKER_BG+1}" ]; then
-  BULLETTRAIN_DOCKER_BG=cyan
-fi
-if [ ! -n "${BULLETTRAIN_DOCKER_FG+1}" ]; then
-  BULLETTRAIN_DOCKER_FG=white
-fi
-if [ ! -n "${BULLETTRAIN_DOCKER_PREFIX+1}" ]; then
-  BULLETTRAIN_DOCKER_PREFIX=🐳
-fi
-
-# KUBERNETES
-if [ ! -n "${BULLETTRAIN_KUBE_SHOW+1}" ]; then
-  BULLETTRAIN_KUBE_SHOW=true
-fi
-if [ ! -n "${BULLETTRAIN_KUBE_BG+1}" ]; then
-  BULLETTRAIN_KUBE_BG=green
-fi
-if [ ! -n "${BULLETTRAIN_KUBE_FG+1}" ]; then
-  BULLETTRAIN_KUBE_FG=white
-fi
-if [ ! -n "${BULLETTRAIN_KUBE_PREFIX+1}" ]; then
-  BULLETTRAIN_KUBE_PREFIX=☸
 fi
 
 # VIRTUALENV
@@ -407,22 +377,6 @@ prompt_custom() {
   local custom_msg
   eval custom_msg=$BULLETTRAIN_CUSTOM_MSG
   [[ -n "${custom_msg}" ]] && prompt_segment $BULLETTRAIN_CUSTOM_BG $BULLETTRAIN_CUSTOM_FG "${custom_msg}"
-}
-
-prompt_kube() {
-  if [[ $BULLETTRAIN_KUBE_SHOW == false ]]; then
-    return
-  fi
-
-  prompt_segment $BULLETTRAIN_KUBE_BG $BULLETTRAIN_KUBE_FG $BULLETTRAIN_KUBE_PREFIX" $(kubectl config current-context)"
-}
-
-prompt_docker() {
-  if [[ $BULLETTRAIN_DOCKER_SHOW == false ]]; then
-    return
-  fi
-
-  prompt_segment $BULLETTRAIN_DOCKER_BG $BULLETTRAIN_DOCKER_FG $BULLETTRAIN_DOCKER_PREFIX" $(docker info | awk '/Name/{printf "%s",$2}')"
 }
 
 # Git

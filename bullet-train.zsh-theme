@@ -23,15 +23,8 @@ if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
     custom
     context
     dir
-    perl
-    ruby
     virtualenv
-    nvm
-    aws
-    go
-    elixir
     git
-    hg
     cmd_exec_time
   )
 fi
